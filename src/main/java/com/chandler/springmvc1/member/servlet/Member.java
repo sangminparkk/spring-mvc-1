@@ -1,4 +1,4 @@
-package com.chandler.springmvc1.servlet.member;
+package com.chandler.springmvc1.member.servlet;
 
 import lombok.Builder;
 import lombok.Getter;

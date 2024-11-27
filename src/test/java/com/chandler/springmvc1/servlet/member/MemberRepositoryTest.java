@@ -1,5 +1,7 @@
 package com.chandler.springmvc1.servlet.member;
 
+import com.chandler.springmvc1.member.servlet.Member;
+import com.chandler.springmvc1.member.servlet.MemberRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
