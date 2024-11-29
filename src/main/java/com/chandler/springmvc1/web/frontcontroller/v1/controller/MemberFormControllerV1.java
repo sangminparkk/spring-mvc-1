@@ -13,7 +13,7 @@ public class MemberFormControllerV1 implements ControllerV1 {
     @Override
     public void process(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         System.out.println("MemberFormControllerV1.process");
-        String viewPath = "/webapp/WEB-INF/views/memberForm.jsp";
+        String viewPath = "/webapp/WEB-INF/views/new-form.jsp";
         RequestDispatcher requestDispatcher = request.getRequestDispatcher(viewPath);
         requestDispatcher.forward(request, response);
     }
