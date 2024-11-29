@@ -15,7 +15,6 @@ public class MyView {
         this.viewPath = "/webapp/WEB-INF/views/" + viewPath + ".jsp"; // prefix/postfix 적용
     }
 
-    //TODO: render 호출 누가?
     public void render(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         RequestDispatcher requestDispatcher = request.getRequestDispatcher(this.viewPath);
         requestDispatcher.forward(request, response);

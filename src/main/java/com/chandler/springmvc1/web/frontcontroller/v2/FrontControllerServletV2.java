@@ -1,6 +1,9 @@
 package com.chandler.springmvc1.web.frontcontroller.v2;
 
+import com.chandler.springmvc1.web.frontcontroller.MyView;
 import com.chandler.springmvc1.web.frontcontroller.v2.controller.MemberFormControllerV2;
+import com.chandler.springmvc1.web.frontcontroller.v2.controller.MemberListControllerV2;
+import com.chandler.springmvc1.web.frontcontroller.v2.controller.MemberSaveControllerV2;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -20,6 +23,8 @@ public class FrontControllerServletV2 extends HttpServlet {
 
     public FrontControllerServletV2() { // 생성시에 초기화
         controllerMap.put("/front-controller/v2/members/new-form", new MemberFormControllerV2());
+        controllerMap.put("/front-controller/v2/members/save", new MemberSaveControllerV2());
+        controllerMap.put("/front-controller/v2/members", new MemberListControllerV2());
 }
 
     @Override
@@ -32,7 +37,8 @@ public class FrontControllerServletV2 extends HttpServlet {
             return;
         }
 
-        controller.process(request, response);
+        MyView view = controller.process(request, response);
+        view.render(request, response);
     }
 
 }
