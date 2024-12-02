@@ -1,0 +1,6 @@
+POST localhost:8080/mapping-consume
+Content-Type: application/json
+
+{
+  "name" : "chandler"
+}
