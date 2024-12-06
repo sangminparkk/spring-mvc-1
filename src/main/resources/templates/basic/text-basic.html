@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <link th:href="@{/css/bootstrap.min.css}"
+          href="../css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <ul>
+        <li> th:text 사용 <span th:text="${data}"> 하하</span></li>
+        <li> th:unescaped 사용 <span th:utext="${data}"> 하하</span></li>
+        <li> 컨텐츠에서 텍스트 직접 출력 = [[${data}]]</li>
+        <li> 컨텐츠에서 텍스트 직접 출력 = [[${data}]]</li>
+    </ul>
+
+</body>
+</html>
