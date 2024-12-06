@@ -53,3 +53,12 @@ Query-string : @{/hello(param1=${param1}, param2=${param2})}   /hello?param1=xxx
 path-variable : @{/hello/{param1}/{param2}(param1=${param1}, param2=${param2})}  /hello/param1/param2
 둘의 조합 : @{/hello/{param1}(param1=${param1}, param2=${param2})  /hello/param1?param2=xxx
 ```
+
+* 리터럴
+  * 소스 코드 상 고정된 값
+  * 문자 처리 시 공백 여부 중요
+    * 공백 O : ```작은따옴표(``)``` 반드시 사용해야 리터럴 처리 가능
+    * 공백 X : 작은따옴표없이 리터럴 처리 가능
+  * 리터럴 대체 문법 : `||`, 편리해서 주로 사용할 것 같습니다.
+
+
