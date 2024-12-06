@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <link th:href="@{/css/bootstrap.min.css}"
+          href="../css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+<ul>편의 객체
+    <li> request parameter = <span th:text="${param.paramData}"> 하하</span></li>
+    <li> session = <span th:text="${session.sessionData}"> 하하</span></li>
+</ul>
+</body>
+</html>

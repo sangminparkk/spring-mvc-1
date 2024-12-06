@@ -1,5 +1,6 @@
 package com.chandler.springmvc1.thymeleaf;
 
+import jakarta.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -41,6 +42,13 @@ public class BasicThymeleafController {
         return "basic/springEL";
     }
 
+    @GetMapping("/basic-object")
+    public String basicObject(HttpSession session){
+        session.setAttribute("sessionData", "SESSION!!!");
+        return "basic/basic-object";
+    }
 
 
-}
+
+
+    }
