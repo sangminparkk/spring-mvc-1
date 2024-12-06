@@ -53,12 +53,17 @@ Query-string : @{/hello(param1=${param1}, param2=${param2})}   /hello?param1=xxx
 path-variable : @{/hello/{param1}/{param2}(param1=${param1}, param2=${param2})}  /hello/param1/param2
 둘의 조합 : @{/hello/{param1}(param1=${param1}, param2=${param2})  /hello/param1?param2=xxx
 ```
-
 * 리터럴
   * 소스 코드 상 고정된 값
   * 문자 처리 시 공백 여부 중요
     * 공백 O : ```작은따옴표(``)``` 반드시 사용해야 리터럴 처리 가능
     * 공백 X : 작은따옴표없이 리터럴 처리 가능
   * 리터럴 대체 문법 : `||`, 편리해서 주로 사용할 것 같습니다.
+* 속성
+  * 설정 : `th:field`
+  * 추가 : `th:classappend`
+  * 체크박스 : `th:checked`
+    * html은 기본적으로 checked가 있으면 무조건 표시합니다.
+    * th:checked 사용하면 checked=false 시, 체크 속성값을 제외함으로 개발자가 편리하게 개발할 수 있습니다.
 
-
+  
