@@ -61,6 +61,11 @@ public class BasicThymeleafController {
         return "basic/literal";
     }
 
+    @GetMapping("/attributes")
+    public String attributes(){
+        return "basic/attributes";
+    }
+
 
 
 
