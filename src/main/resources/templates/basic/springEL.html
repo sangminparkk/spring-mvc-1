@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <link th:href="@{/css/bootstrap.min.css}"
+          href="../css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+<ul>Object
+    <li> ${userA.name} = <span th:text="${userA.name}"> 하하</span></li>
+    <li> ${userA.age} = <span th:text="${userA.age}"> 하하</span></li>
+</ul>
+<ul>List
+    <li> ${users[0].name} = <span th:text="${users[0].name}"> 하하</span></li>
+    <li> ${users[0]['name']} = <span th:text="${users[0]['name']}"> 하하</span></li>
+    <li> ${users[0].age} = <span th:text="${users[0].age}">하하</span></li>
+</ul>
+<ul>Map
+    <li> ${userMap['userA'].name} = <span th:text="${userMap['userA'].name}"> 하하</span></li>
+</ul>
+</body>
+</html>
