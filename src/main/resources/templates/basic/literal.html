@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <link th:href="@{/css/bootstrap.min.css}"
+          href="../css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+<h1>리터럴</h1>
+<ul>
+<!--    <li> Hello world! = <span th:text="Hello world!"> </span></li>-->
+    <li> 'Hello world!' = <span th:text="'Hello world!'"> </span></li>
+    <li> 'Hello ' + 'world!' = <span th:text="'Hello ' + 'world!'"> </span></li>
+    <li> 'Hello ' + ${data} = <span th:text="'Hello ' + ${data}"> </span></li>
+    <li> |Hello ${data}| = <span th:text="|Hello ${data}|"> </span></li>
+</ul>
+</body>
+</html>

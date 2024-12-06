@@ -55,6 +55,14 @@ public class BasicThymeleafController {
         return "basic/link";
     }
 
+    @GetMapping("/literal")
+    public String literal(Model model){
+        model.addAttribute("data", "Tesla!!!");
+        return "basic/literal";
+    }
+
+
+
 
 
 
