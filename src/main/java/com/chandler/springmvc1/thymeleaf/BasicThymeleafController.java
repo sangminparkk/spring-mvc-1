@@ -78,6 +78,12 @@ public class BasicThymeleafController {
         return "basic/condition";
     }
 
+    @GetMapping("/block")
+    public String block(Model model){
+        addUser(model);
+        return "basic/block";
+    }
+
     private static void addUser(Model model) {
         List<User> users = new ArrayList<>();
 
