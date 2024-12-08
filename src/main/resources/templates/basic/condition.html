@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <link th:href="@{/css/bootstrap.min.css}"
+          href="../css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+<h1>기본 테이블</h1>
+<table class="table table-bordered table-striped">
+    <thead>
+        <tr>
+            <th>count</th>
+            <th>username</th>
+            <th>age</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr th:each="user : ${users}">
+            <td th:text="${userStat.count}">count</td>
+            <td th:text="${user.name}">username</td>
+            <td>
+                <span th:text="${user.age}">0</span>
+                <span th:text="미성년자" th:if="${user.age lt 20}">0</span>
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+<h1>Switch</h1>
+<table class="table table-bordered table-striped">
+    <thead>
+    <tr>
+        <th>count</th>
+        <th>username</th>
+        <th>age</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="user : ${users}">
+        <td th:text="${userStat.count}">count</td>
+        <td th:text="${user.name}">username</td>
+        <td th:switch="${user.age}">
+            <span th:case="10">10살</span>
+            <span th:case="20">20살</span>
+            <span th:case="*">기타</span>
+        </td>
+    </tr>
+    </tbody>
+</table>
+
+
+
+</body>
+</html>

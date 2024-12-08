@@ -72,6 +72,12 @@ public class BasicThymeleafController {
         return "basic/each";
     }
 
+    @GetMapping("/condition")
+    public String condition(Model model){
+        addUser(model);
+        return "basic/condition";
+    }
+
     private static void addUser(Model model) {
         List<User> users = new ArrayList<>();
 
