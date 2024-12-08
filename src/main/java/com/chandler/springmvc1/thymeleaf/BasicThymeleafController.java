@@ -66,9 +66,20 @@ public class BasicThymeleafController {
         return "basic/attributes";
     }
 
-
-
-
-
-
+    @GetMapping("/each")
+    public String each(Model model){
+        addUser(model);
+        return "basic/each";
     }
+
+    private static void addUser(Model model) {
+        List<User> users = new ArrayList<>();
+
+        users.add(new User("userA", 10));
+        users.add(new User("userB", 20));
+        users.add(new User("userC", 30));
+
+        model.addAttribute("users", users);
+    }
+
+}
