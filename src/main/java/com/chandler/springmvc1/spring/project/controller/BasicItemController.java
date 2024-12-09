@@ -58,6 +58,7 @@ public class BasicItemController {
 
     @PostMapping("/{itemId}/edit")
     public String updateItem(@PathVariable Long itemId, Item updateParam) {
+        log.info("item={}", updateParam.getOpen());
         itemRepository.update(itemId, updateParam);
         return "redirect:/basic/items/" + itemId;
     }
