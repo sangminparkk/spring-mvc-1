@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <link th:href="@{/css/bootstrap.min.css}"
+          href="../css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+
+<!--자바 스크립트 인라인 사용전-->
+<script>
+    var username = [[${user.name}]];
+    var age = [[${user.age}]];
+
+    var user = [[${user}]];
+</script>
+
+<!--자바 스크립트 인라인 사용후-->
+<script th:inline="javascript">
+
+    var username = [[${user.name}]];
+    var age = [[${user.age}]];
+
+    var user = [[${user}]];
+
+</script>
+
+<!--자바 스크립트 인라인 each-->
+<script th:inline="javascript">
+
+    [# th:each="user, userStat : ${users}"]
+    var user[[${userStat.count}]] = [[${user}]];
+    [/]
+
+</script>
+
+
+</body>
+</html>

@@ -84,6 +84,13 @@ public class BasicThymeleafController {
         return "basic/block";
     }
 
+    @GetMapping("/javascript")
+    public String javascript(Model model){
+        model.addAttribute("user", new User("userD", 40));
+        addUser(model);
+        return "basic/javascript";
+    }
+
     private static void addUser(Model model) {
         List<User> users = new ArrayList<>();
 
