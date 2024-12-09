@@ -66,4 +66,11 @@ path-variable : @{/hello/{param1}/{param2}(param1=${param1}, param2=${param2})} 
     * html은 기본적으로 checked가 있으면 무조건 표시합니다.
     * th:checked 사용하면 checked=false 시, 체크 속성값을 제외함으로 개발자가 편리하게 개발할 수 있습니다.
 
-  
+
+### 스프링 통합
+통합 지원을 위한 기본 설정은 스프링 부트가 자동으로 지원해줍니다.
+
+입력폼 처리
+* `th:object` : Model에 빈 객체를 넘겨줌으로써 **커멘드 객체** 설정
+* `th:field` : 커멘드 객체의 프로퍼티 접근합니다. **id, name, value 속성을 자동 완성해주며 중복 코드 제거**
+
