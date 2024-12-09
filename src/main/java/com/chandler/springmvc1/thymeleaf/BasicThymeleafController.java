@@ -91,6 +91,16 @@ public class BasicThymeleafController {
         return "basic/javascript";
     }
 
+    @GetMapping("/fragments")
+    public String fragments(){
+        return "basic/fragment/fragmentMain";
+    }
+
+    @GetMapping("/layout")
+    public String layout(){
+        return "basic/layout/layoutMain";
+    }
+
     private static void addUser(Model model) {
         List<User> users = new ArrayList<>();
 
