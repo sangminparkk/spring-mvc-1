@@ -1,5 +1,8 @@
 package com.chandler.springmvc1.spring.project.domain;
 
+import lombok.Getter;
+
+@Getter
 public enum ItemType {
 
     BOOK("도서"), FOOD("음식"), ETC("기타");

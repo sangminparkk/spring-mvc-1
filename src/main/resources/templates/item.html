@@ -52,6 +52,14 @@
                class="form-check-label">서울</label>
     </div>
 
+    <div>상품 종류</div>
+    <div class="form-check form-check-inline" th:each="type : ${itemTypes}">
+        <input type="radio" th:field="${item.itemType}" th:value="${type.name()}" class="form-check-input" disabled>
+        <label th:for="${#ids.prev('itemType')}"
+               th:text="${type.description}"
+               class="form-check-label">FOOD</label>
+    </div>
+
 
     <div class="row">
         <div class="col">

@@ -2,6 +2,7 @@ package com.chandler.springmvc1.spring.project.controller;
 
 import com.chandler.springmvc1.spring.project.domain.Item;
 import com.chandler.springmvc1.spring.project.domain.ItemRepository;
+import com.chandler.springmvc1.spring.project.domain.ItemType;
 import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -31,6 +32,11 @@ public class BasicItemController {
         return regions;
     }
 
+    @ModelAttribute("itemTypes")
+    public ItemType[] itemTypes() {
+        return ItemType.values();
+    }
+
     @GetMapping
     public String items(Model model) {
         List<Item> items = itemRepository.findAll();
@@ -55,6 +61,7 @@ public class BasicItemController {
     public String addItem(Item item, RedirectAttributes redirectAttributes) {
         log.info("item.open={}", item.getOpen());
         log.info("item.regions={}", item.getRegions());
+        log.info("item.itemType={}", item.getItemType());
 
         Item savedItem = itemRepository.save(item);
         redirectAttributes.addAttribute("itemId", savedItem.getId());
