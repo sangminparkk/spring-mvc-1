@@ -60,6 +60,14 @@
                class="form-check-label">FOOD</label>
     </div>
 
+    <div>배송 방식</div>
+    <select th:field="${item.deliveryCode}" class="form-select" disabled>
+        <option value="">==배송 방식 선택==</option>
+        <option th:each="delivery : ${deliveryCodes}" th:value="${delivery.code}"
+                th:text="${delivery.displayName}">빠른배송</option>
+    </select>
+
+    <hr class="my-4">
 
     <div class="row">
         <div class="col">
