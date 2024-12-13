@@ -4,13 +4,13 @@ import com.chandler.springmvc1.spring.project.domain.DeliveryCode;
 import com.chandler.springmvc1.spring.project.domain.Item;
 import com.chandler.springmvc1.spring.project.domain.ItemRepository;
 import com.chandler.springmvc1.spring.project.domain.ItemType;
+import com.chandler.springmvc1.spring.project.validation.ItemValidator;
 import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.util.StringUtils;
-import org.springframework.validation.BindingResult;
+import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -26,6 +26,7 @@ import java.util.Map;
 public class BasicItemController {
 
     private final ItemRepository itemRepository;
+    private final ItemValidator itemValidator;
 
     @ModelAttribute("regions")
     public Map<String, String> regions() {
@@ -71,28 +72,10 @@ public class BasicItemController {
     }
 
     @PostMapping("/add")
-    public String addItem(Item item, BindingResult bindingResult, RedirectAttributes redirectAttributes, Model model) {
-        if (!StringUtils.hasText(item.getItemName())) {
-            bindingResult.rejectValue("itemName", "required");
-        }
-
-        if (item.getPrice() == null || item.getPrice() < 1000 || item.getPrice() > 1000000) {
-            bindingResult.rejectValue("price", "range", new Object[]{1000, 1000000}, null);
-        }
-
-        if (item.getQuantity() == null || item.getQuantity() >= 9999) {
-            bindingResult.rejectValue("quantity", "max", new Object[]{9999}, null);
-        }
-
-        if (item.getQuantity() != null && item.getPrice() != null) {
-            int resultPrice = item.getQuantity() * item.getPrice();
-            if (resultPrice < 10000) {
-                bindingResult.reject("totalPriceMain", new Object[]{10000, resultPrice}, null);
-            }
-        }
-
-        if (bindingResult.hasErrors()) {
-            log.info("errors={}", bindingResult);
+    public String addItem(Item item, Errors errors, RedirectAttributes redirectAttributes, Model model) {
+        itemValidator.validate(item, errors);
+        if (errors.hasErrors()) {
+            log.info("errors={}", errors);
             return "addForm";
         }
 
