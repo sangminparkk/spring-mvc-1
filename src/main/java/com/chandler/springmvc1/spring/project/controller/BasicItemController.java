@@ -11,6 +11,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -27,6 +29,11 @@ public class BasicItemController {
 
     private final ItemRepository itemRepository;
     private final ItemValidator itemValidator;
+
+    @InitBinder
+    public void init(WebDataBinder binder) {
+        binder.addValidators(itemValidator);
+    }
 
     @ModelAttribute("regions")
     public Map<String, String> regions() {
@@ -72,8 +79,8 @@ public class BasicItemController {
     }
 
     @PostMapping("/add")
-    public String addItem(Item item, Errors errors, RedirectAttributes redirectAttributes, Model model) {
-        itemValidator.validate(item, errors);
+    public String addItem(@Validated Item item, Errors errors, RedirectAttributes redirectAttributes, Model model) {
+
         if (errors.hasErrors()) {
             log.info("errors={}", errors);
             return "addForm";
