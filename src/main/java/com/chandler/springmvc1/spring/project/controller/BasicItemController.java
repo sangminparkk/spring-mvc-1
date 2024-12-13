@@ -4,15 +4,13 @@ import com.chandler.springmvc1.spring.project.domain.DeliveryCode;
 import com.chandler.springmvc1.spring.project.domain.Item;
 import com.chandler.springmvc1.spring.project.domain.ItemRepository;
 import com.chandler.springmvc1.spring.project.domain.ItemType;
-import com.chandler.springmvc1.spring.project.validation.ItemValidator;
 import jakarta.annotation.PostConstruct;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
-import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -28,12 +26,6 @@ import java.util.Map;
 public class BasicItemController {
 
     private final ItemRepository itemRepository;
-    private final ItemValidator itemValidator;
-
-    @InitBinder
-    public void init(WebDataBinder binder) {
-        binder.addValidators(itemValidator);
-    }
 
     @ModelAttribute("regions")
     public Map<String, String> regions() {
@@ -79,8 +71,9 @@ public class BasicItemController {
     }
 
     @PostMapping("/add")
-    public String addItem(@Validated Item item, Errors errors, RedirectAttributes redirectAttributes, Model model) {
+    public String addItem(@Valid Item item, Errors errors, RedirectAttributes redirectAttributes, Model model) {
 
+        totalAmountMin(item, errors);
         if (errors.hasErrors()) {
             log.info("errors={}", errors);
             return "addForm";
@@ -100,8 +93,12 @@ public class BasicItemController {
     }
 
     @PostMapping("/{itemId}/edit")
-    public String updateItem(@PathVariable Long itemId, Item updateParam) {
-        log.info("item={}", updateParam.getOpen());
+    public String updateItem(@PathVariable Long itemId, @Valid Item updateParam, Errors errors) {
+        totalAmountMin(updateParam, errors);
+        if (errors.hasErrors()) {
+            return "editForm";
+        }
+
         itemRepository.update(itemId, updateParam);
         return "redirect:/basic/items/" + itemId;
     }
@@ -111,5 +108,15 @@ public class BasicItemController {
         itemRepository.save(new Item("itemA", 10000, 10));
         itemRepository.save(new Item("itemB", 20000, 20));
     }
+
+    private static void totalAmountMin(Item item, Errors errors) {
+        if (item.getQuantity() != null && item.getPrice() != null) {
+            int resultPrice = item.getQuantity() * item.getPrice();
+            if (resultPrice < 10000) {
+                errors.reject("totalPriceMin", new Object[]{10000, resultPrice}, null);
+            }
+        }
+    }
+
 
 }
