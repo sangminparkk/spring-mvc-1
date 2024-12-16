@@ -4,6 +4,8 @@ import com.chandler.springmvc1.spring.project.domain.DeliveryCode;
 import com.chandler.springmvc1.spring.project.domain.Item;
 import com.chandler.springmvc1.spring.project.domain.ItemRepository;
 import com.chandler.springmvc1.spring.project.domain.ItemType;
+import com.chandler.springmvc1.spring.project.dto.ItemSaveForm;
+import com.chandler.springmvc1.spring.project.dto.ItemUpdateForm;
 import jakarta.annotation.PostConstruct;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -71,7 +73,8 @@ public class BasicItemController {
     }
 
     @PostMapping("/add")
-    public String addItem(@Valid Item item, Errors errors, RedirectAttributes redirectAttributes, Model model) {
+    public String addItem(@Valid @ModelAttribute("item") ItemSaveForm itemSaveForm, Errors errors, RedirectAttributes redirectAttributes, Model model) {
+        Item item = new Item(itemSaveForm.getItemName(), itemSaveForm.getPrice(), itemSaveForm.getQuantity());
 
         totalAmountMin(item, errors);
         if (errors.hasErrors()) {
@@ -93,7 +96,9 @@ public class BasicItemController {
     }
 
     @PostMapping("/{itemId}/edit")
-    public String updateItem(@PathVariable Long itemId, @Valid Item updateParam, Errors errors) {
+    public String updateItem(@PathVariable Long itemId, @Valid @ModelAttribute("item") ItemUpdateForm itemUpdateForm, Errors errors) {
+        Item updateParam = new Item(itemUpdateForm.getItemName(), itemUpdateForm.getPrice(), itemUpdateForm.getQuantity());
+
         totalAmountMin(updateParam, errors);
         if (errors.hasErrors()) {
             return "editForm";
