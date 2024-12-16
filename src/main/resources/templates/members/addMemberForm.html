@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <link th:href="@{/css/bootstrap.min.css}"
+          href="../css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .container {
+            max-width: 560px;
+        }
+        .field-error {
+            border-color: #ff0000;
+            color : #ff0000;
+        }
+    </style>
+</head>
+
+<body>
+<div class="container">
+
+    <div class="py-5 text-center">
+        <h2>회원 가입</h2>
+    </div>
+
+    <form action="item.html" th:action th:object="${member}" method="POST">
+
+        <div th:if="${#fields.hasGlobalErrors()}">
+            <p class="field-error" th:each="err : ${#fields.globalErrors()}" th:text="${err}">전체 오류 메시지</p>
+        </div>
+
+        <div>
+            <label for="loginId">로그인 ID</label>
+            <input type="text" id="loginId" th:field="*{loginId}"
+                   th:errorclass="field-error" class="form-control" placeholder="로그인 ID를 입력해주세요">
+            <div class="field-error" th:errors="*{loginId}">오류메시지</div>
+        </div>
+
+        <div>
+            <label for="name">회원 이름</label>
+            <input type="text" id="name" th:field="*{name}"
+                   th:errorclass="field-error" class="form-control" placeholder="이름을 입력해주세요">
+            <div class="field-error" th:errors="*{name}">오류메시지</div>
+        </div>
+
+        <div>
+            <label for="password">패스워드</label>
+            <input type="text" id="password" th:field="*{password}"
+                   th:errorclass="field-error" class="form-control" placeholder="패스워드를 입력해주세요">
+            <div class="field-error" th:errors="*{password}">오류메시지</div>
+        </div>
+
+    <hr class="my-4">
+
+        <div class="row">
+        <div class="col">
+            <button class="w-100 btn btn-primary" type="submit">가입하기</button>
+        </div>
+
+        </div>
+
+    </form> <!-- /form -->
+</div>  <!-- /container -->
+
+</body>
+</html>
