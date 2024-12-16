@@ -39,6 +39,9 @@ public class LoginController {
             return "/login/loginForm";
         }
 
+        Cookie cookie = new Cookie("memberId", String.valueOf(loginMember.getId()));
+        response.addCookie(cookie);
+
         log.info("로그인 성공 = {}", loginMember);
         return "redirect:/";
     }
