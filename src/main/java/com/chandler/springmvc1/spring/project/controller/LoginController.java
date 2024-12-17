@@ -3,7 +3,8 @@ package com.chandler.springmvc1.spring.project.controller;
 import com.chandler.springmvc1.spring.project.domain.Member;
 import com.chandler.springmvc1.spring.project.dto.LoginForm;
 import com.chandler.springmvc1.spring.project.service.LoginService;
-import jakarta.servlet.http.Cookie;
+import com.chandler.springmvc1.spring.project.web.SessionManager;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -20,6 +21,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 public class LoginController {
 
     private final LoginService loginService;
+    private final SessionManager sessionManager;
 
     @GetMapping("/login")
     public String loginForm(Model model) {
@@ -39,10 +41,15 @@ public class LoginController {
             return "/login/loginForm";
         }
 
-        Cookie cookie = new Cookie("memberId", String.valueOf(loginMember.getId()));
-        response.addCookie(cookie);
+        sessionManager.createSession(loginMember, response);
 
         log.info("로그인 성공 = {}", loginMember);
+        return "redirect:/";
+    }
+
+    @PostMapping("/logout")
+    public String logout(HttpServletRequest request) {
+        sessionManager.expire(request);
         return "redirect:/";
     }
 
