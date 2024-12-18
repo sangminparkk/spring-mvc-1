@@ -3,9 +3,9 @@ package com.chandler.springmvc1.spring.project.controller;
 import com.chandler.springmvc1.spring.project.domain.Member;
 import com.chandler.springmvc1.spring.project.dto.LoginForm;
 import com.chandler.springmvc1.spring.project.service.LoginService;
-import com.chandler.springmvc1.spring.project.web.SessionManager;
+import com.chandler.springmvc1.spring.project.web.SessionConst;
 import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -21,7 +21,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 public class LoginController {
 
     private final LoginService loginService;
-    private final SessionManager sessionManager;
 
     @GetMapping("/login")
     public String loginForm(Model model) {
@@ -30,7 +29,7 @@ public class LoginController {
     }
 
     @PostMapping("/login")
-    public String login(@Valid LoginForm loginForm, BindingResult bindingResult, HttpServletResponse response) {
+    public String login(@Valid LoginForm loginForm, BindingResult bindingResult, HttpServletRequest request) {
         if (bindingResult.hasErrors()) {
             return "/login/loginForm";
         }
@@ -41,7 +40,8 @@ public class LoginController {
             return "/login/loginForm";
         }
 
-        sessionManager.createSession(loginMember, response);
+        HttpSession session = request.getSession();
+        session.setAttribute(SessionConst.LOGIN_MEMBER, loginMember);
 
         log.info("로그인 성공 = {}", loginMember);
         return "redirect:/";
@@ -49,7 +49,10 @@ public class LoginController {
 
     @PostMapping("/logout")
     public String logout(HttpServletRequest request) {
-        sessionManager.expire(request);
+        HttpSession session = request.getSession(false);
+        if (session != null) {
+            session.invalidate();
+        }
         return "redirect:/";
     }
 
