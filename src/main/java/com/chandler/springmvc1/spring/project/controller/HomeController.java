@@ -4,12 +4,11 @@ import com.chandler.springmvc1.spring.project.domain.Member;
 import com.chandler.springmvc1.spring.project.domain.MemberRepository;
 import com.chandler.springmvc1.spring.project.web.SessionConst;
 import com.chandler.springmvc1.spring.project.web.SessionManager;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.SessionAttribute;
 
 @RequiredArgsConstructor
 @Controller
@@ -24,19 +23,11 @@ public class HomeController {
     }
 
     @GetMapping("/")
-    public String homeLogin(HttpServletRequest request, Model model) {
-        HttpSession session = request.getSession(false);
-        if (session == null) {
-            return "home";
-        }
-
-        Member loginMember = (Member) session.getAttribute(SessionConst.LOGIN_MEMBER);
-
+    public String homeLogin(@SessionAttribute(name = SessionConst.LOGIN_MEMBER, required = false) Member loginMember, Model model) {
         if (loginMember == null) {
             return "home";
         }
 
-        // 세션 유지시 로그인으로 이동
         model.addAttribute("member", loginMember);
         return "loginHome";
     }
