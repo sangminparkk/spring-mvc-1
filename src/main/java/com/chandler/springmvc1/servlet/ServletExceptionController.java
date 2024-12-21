@@ -7,8 +7,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 
 import java.io.IOException;
 
-import static jakarta.servlet.http.HttpServletResponse.SC_INTERNAL_SERVER_ERROR;
-import static jakarta.servlet.http.HttpServletResponse.SC_NOT_FOUND;
+import static jakarta.servlet.http.HttpServletResponse.*;
 
 @Slf4j
 @Controller
@@ -17,6 +16,11 @@ public class ServletExceptionController {
     @GetMapping("/error-ex")
     public void servletException() {
         throw new RuntimeException("servletException");
+    }
+
+    @GetMapping("/error-400")
+    public void error400(HttpServletResponse response) throws IOException {
+        response.sendError(SC_BAD_REQUEST, "Bad Request, 400 에러!!");
     }
 
     @GetMapping("/error-404")
